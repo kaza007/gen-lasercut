@@ -56,7 +56,19 @@ int layer = 104;
 string s;
 string validFile;
 string fileName;
+string fileNameWrite;
 
+/****************************************************************************/
+/****************************** default Parameters **************************/
+/****************************************************************************/
+void getFilePath() {
+if (board) board(B) {
+  string FileAndExt = filename(B.name);
+
+    fileNameWrite = path_ulp[0] + "/" + filesetext(FileAndExt, "") + ".ini";
+    fileName = fileNameWrite;
+  }
+}
 /****************************************************************************/
 /****************************** default Parameters **************************/
 /****************************************************************************/
@@ -265,6 +277,8 @@ void generate() {
 /****************************** write to file *******************************/
 /****************************************************************************/
 void writeini() {
+    getFilePath();
+    dlgRedisplay();
     output (fileName, "wt") {
 
         printf("%s", "#gen_lasercut_parameter_file#");
@@ -379,7 +393,7 @@ int Result = dlgDialog("Enclosure Parameters") {
                 dlgLabel("File &name:");
                 dlgStringEdit(fileName);
                 dlgPushButton("Bro&wse") {
-                    fileName = dlgFileOpen("Select a file", fileName);
+                    fileName = dlgFileOpen("Select a file", path_ulp[0], "*.ini");
                 }
             }
             dlgHBoxLayout {
@@ -393,21 +407,18 @@ int Result = dlgDialog("Enclosure Parameters") {
                     else
                         dlgMessageBox("File is not valid. Cannot read Parameters from file!");
                 }
-
-                //write to file
-                dlgPushButton("+Save to file") {
-                    if (fileName != "") {
-                        writeini();
-                    }
-                    else
-                        dlgMessageBox("File is not valid. Cannot write Parameters to file!");
+		//load default values
+		dlgPushButton("+Load Default Parameters") {
+			defaultParams();
                 }
 
             }
             dlgSpacing(10);
-            dlgPushButton("+Load Default Parameters") {
-                defaultParams();
             }
+                
+	    //write to file
+            dlgPushButton("+Save to file") {
+                    writeini();
 
         }
     }
