@@ -4,7 +4,7 @@
  *
  * v2,
  * https://github.com/kaza007
- * 17/10/2018, added feature to read / write parameters from file
+ * 19/10/2018, added feature to read / write parameters from file
  */
 
 int minmin(int a, int b, int c) {
@@ -388,7 +388,7 @@ void fileCheck() {
 /****************************************************************************/
 int Result = dlgDialog("Enclosure Parameters") {
     dlgVBoxLayout {
-        dlgGroup("Parameters") {
+        dlgGroup("Load and Save Parameters") {
             dlgHBoxLayout {
                 dlgLabel("File &name:");
                 dlgStringEdit(fileName);
